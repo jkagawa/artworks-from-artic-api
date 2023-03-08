@@ -34,7 +34,6 @@ const getArtworks = async () => {
 
     const result = await fetch('https://api.artic.edu/api/v1/artworks?page=1&limit=20');
     const apiData = await result.json();
-    console.log(apiData);
 
     complete();
 
@@ -46,7 +45,6 @@ const displayArtworks = async () => {
 
     const apiData = await getArtworks();
 
-    console.log(apiData['data']);
     const data = apiData['data'];
     const config = apiData['config'];
 
@@ -60,7 +58,7 @@ const displayArtworks = async () => {
         img_el.className = 'art-img';
         img_el.id = artwork['id'];
 
-        let img_url = '';
+        let img_url = 'images/image-unavailable.jpg';
         if(artwork['image_id'] != null) {
             img_url = config['iiif_url'] + '/' + artwork['image_id'] + '/full/843,/0/default.jpg';
         }
@@ -94,23 +92,27 @@ displayArtworks();
 async function clickEvent(event, id, title, img_url) {
     loadingFullInfo();
 
-    console.log(id);
-    console.log(event);
-    const result = await fetch('https://api.artic.edu/api/v1/artworks/' + id.toString() + "?fields=id,artist_title,place_of_origin,date_display");
+    const result = await fetch('https://api.artic.edu/api/v1/artworks/' + id.toString() + "?fields=id,artist_title,place_of_origin,date_display,thumbnail,medium_display,dimensions,department_title");
     const apiData = await result.json();
-    console.log(apiData);
-
     const data = apiData['data'];
-    const config = apiData['config'];
-    let text = `ID: ${data['id']}\nTITLE: ${data['title']}\nARTIST: ${data['artist_title']}\n`;
-    text += `PLACE OF ORIGIN: ${data['place_of_origin']}\nDISPLAY DATE: ${data['date_display']}\n\n`;
-    console.log(text);
+    console.log(data);
+
+    let description = 'None';
+    if(data['thumbnail'] != null) { description = data['thumbnail']['alt_text']; 
+}
+    let text = `${title}\n\n`;
+    text += `ARTIST:\n${data['artist_title']}\n\n`;
+    text += `MEDIUM:\n${data['medium_display']}\n\n`;
+    text += `PLACE OF ORIGIN:\n${data['place_of_origin']}\n\n`;
+    text += `DISPLAY DATE:\n${data['date_display']}\n\n`;
+    text += `DEPARTMENT:\n${data['department_title']}\n\n`;
+    text += `DESCRIPTION:\n${description}\n\n`;
+    text += `DIMENSIONS:\n${data['dimensions']}\n\n`;
 
     fullinfoPage.style.display = 'block';
     shade.style.display = 'block';
 
     if(img_url != null && img_url != '') {
-        console.log('Not null');
         indivImage.src = img_url;
     }
 

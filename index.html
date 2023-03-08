@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 <link rel="stylesheet" href="main.css">
+<script src="https://kit.fontawesome.com/3ef1af0600.js" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="main.js" defer></script>
 <title>Artworks from the Art Institute of Chicago</title>
@@ -16,9 +17,10 @@
 
     <!-- List of Artworks -->
     <main>
-        <div id="artwork-container">
-            <h1>Artworks from the Art Institute of Chicago</h1>
+        <div>
+            <h1 class="title">Artworks from the Art Institute of Chicago</h1>
         </div>
+        <div id="artwork-container"></div>
     </main>
 
     <!-- View Specific Artwork -->
@@ -26,19 +28,23 @@
 
     <!-- View Specific Artwork -->
     <section id="full-artwork-info">
-        <button onclick="exitPage()">Exit</button>
-        <div class="full-artwork-container">
-            <img src="" alt="" id="individual-img">
-            <div id="individual-info"></div>
-        </div>   
+        <button onclick="exitPage()"><i class="fa-solid fa-xmark"></i></button>
+        <div class="full-artwork-box">
+            <div class="full-artwork-container">
+                <img src="" alt="" id="individual-img">
+                <div id="individual-info"></div>
+            </div> 
+        </div>  
     </section>
 
     <!-- Loader -->
     <section id="loader-container">
         <loader class="loader" id="loader"></div>
     </section>
-    
 
+    <!-- Footer -->
+    <footer><a href="https://api.artic.edu/docs/" target="_blank">Art Institute of Chicago API</a></footer>
+    
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.0/js/bootstrap.min.js"></script>
 </body>
